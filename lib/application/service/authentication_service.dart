@@ -11,7 +11,7 @@ class AuthenticationService {
 
   final FirebaseAuth _auth;
 
-  bool get isSignedIn => _auth.currentUser == null;
+  bool get isSignedIn => _auth.currentUser != null;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
