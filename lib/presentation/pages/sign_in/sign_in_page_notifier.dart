@@ -1,8 +1,10 @@
 // Flutter imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:local_pay/application/service/authentication_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
@@ -17,7 +19,79 @@ class SignInPageNotifier extends _$SignInPageNotifier {
   @override
   SignInPageState build() {
     return SignInPageState(
-      key: GlobalKey<FormBuilderState>(),
+      formKey: GlobalKey<FormBuilderState>(),
     );
+  }
+
+  Future<void> onPressedEmailAndPasswordSignInButton() async {
+    final email = state.formKey.currentState!.getRawValue<String>("email");
+    final password =
+        state.formKey.currentState!.getRawValue<String>("password");
+    if (email == null || password == null) {
+      throw Exception("not found email and password field");
+    }
+    if (!state.formKey.currentState!.validate()) {
+      return;
+    }
+    try {
+      await ref
+          .read(authentication)
+          .signInWithEmailAndPassword(email, password);
+    } on FirebaseAuthException catch (e) {
+      final reason = FirebaseAuthExceptionReason.values.byName(e.code);
+      switch (reason) {
+        case FirebaseAuthExceptionReason.userDisabled:
+          //TODO: アカウントが使用できないことをユーザに通知する
+          break;
+        case FirebaseAuthExceptionReason.userNotFound:
+        case FirebaseAuthExceptionReason.worngPassword:
+          state.formKey.currentState!.fields["email"]!
+              .invalidate("Wrong email address or password");
+          break;
+        // case FirebaseAuthExceptionReason.invalidEmail:
+        //   // NOTE: FormBuilderValidators.email()で事前確認しているため必要ない
+        //   break;
+        default:
+          // NOTE: switch分岐上必要なだけでここに来ることはない
+          rethrow;
+      }
+    }
+  }
+
+  Future<void> onPressedGoogleSignInButton() async {
+    try {
+      await ref.read(authentication).signInWithGoogle();
+    } on FirebaseAuthException catch(e) {
+      final reason = FirebaseAuthExceptionReason.values.byName(e.code);
+      switch(reason) {
+        case FirebaseAuthExceptionReason.accountExistsWithDifferentCredential:
+          //TODO: ダイアログなどでユーザに通知した方がいいかも
+          debugPrintStack(label: "use other auth provider");
+          break;
+        case FirebaseAuthExceptionReason.operationNotAllowed:
+          throw Exception("invalided firebase settings");
+        case FirebaseAuthExceptionReason.userDisabled:
+          //TODO: アカウントが使用できないことをユーザに通知する
+          break;
+        default:
+          // NOTE: switch分岐上必要なだけでここに来ることはない
+          rethrow;
+      }
+    }
+  }
+
+  Future<void> onPressedAnonymousSignUpButton() async {
+    try {
+      await ref.read(authentication).signInAnonymously();
+    } on FirebaseAuthException catch (e) {
+      final reason = FirebaseAuthExceptionReason.values.byName(e.code);
+      switch (reason) {
+        case FirebaseAuthExceptionReason.operationNotAllowed:
+          throw Exception("invalided firebase settings");
+        default:
+          // NOTE: switch分岐上必要なだけでここに来ることはない
+          rethrow;
+      }
+    }
   }
 }

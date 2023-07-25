@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
@@ -29,28 +28,41 @@ class _Body extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(signInPageNotifierProvider);
-    final notifie = ref.read(signInPageNotifierProvider.notifier);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            EmailAndPasswordForm(state.key),
-            ElevatedButton(
+    final notifier = ref.read(signInPageNotifierProvider.notifier);
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          EmailAndPasswordForm(state.formKey),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
               child: const Text("Sign in"),
-              onPressed: () {},
+              onPressed: () async {
+                await notifier.onPressedEmailAndPasswordSignInButton();
+              },
             ),
-            SignInButton(
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: SignInButton(
               Buttons.google,
-              onPressed: () {},
+              onPressed: () async {
+                await notifier.onPressedGoogleSignInButton();
+              },
             ),
-            TextButton(
-              child: const Text("Sign up"),
-              onPressed: () {},
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: SignInButton(
+              Buttons.anonymous,
+              onPressed: () async {
+                await notifier.onPressedAnonymousSignUpButton();
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

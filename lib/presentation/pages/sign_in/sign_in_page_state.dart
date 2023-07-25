@@ -9,7 +9,8 @@ part 'sign_in_page_state.freezed.dart';
 
 @freezed
 class SignInPageState with _$SignInPageState {
+  const SignInPageState._();
   const factory SignInPageState({
-    required GlobalKey<FormBuilderState> key,
+    required GlobalKey<FormBuilderState> formKey,
   }) = _SignInPageState;
 }

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignInPageState {
-  GlobalKey<FormBuilderState> get key => throw _privateConstructorUsedError;
+  GlobalKey<FormBuilderState> get formKey => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignInPageStateCopyWith<SignInPageState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $SignInPageStateCopyWith<$Res> {
           SignInPageState value, $Res Function(SignInPageState) then) =
       _$SignInPageStateCopyWithImpl<$Res, SignInPageState>;
   @useResult
-  $Res call({GlobalKey<FormBuilderState> key});
+  $Res call({GlobalKey<FormBuilderState> formKey});
 }
 
 /// @nodoc
@@ -45,12 +45,12 @@ class _$SignInPageStateCopyWithImpl<$Res, $Val extends SignInPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = null,
+    Object? formKey = null,
   }) {
     return _then(_value.copyWith(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
+      formKey: null == formKey
+          ? _value.formKey
+          : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormBuilderState>,
     ) as $Val);
   }
@@ -64,7 +64,7 @@ abstract class _$$_SignInPageStateCopyWith<$Res>
       __$$_SignInPageStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({GlobalKey<FormBuilderState> key});
+  $Res call({GlobalKey<FormBuilderState> formKey});
 }
 
 /// @nodoc
@@ -78,12 +78,12 @@ class __$$_SignInPageStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? key = null,
+    Object? formKey = null,
   }) {
     return _then(_$_SignInPageState(
-      key: null == key
-          ? _value.key
-          : key // ignore: cast_nullable_to_non_nullable
+      formKey: null == formKey
+          ? _value.formKey
+          : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormBuilderState>,
     ));
   }
@@ -91,15 +91,15 @@ class __$$_SignInPageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInPageState implements _SignInPageState {
-  const _$_SignInPageState({required this.key});
+class _$_SignInPageState extends _SignInPageState {
+  const _$_SignInPageState({required this.formKey}) : super._();
 
   @override
-  final GlobalKey<FormBuilderState> key;
+  final GlobalKey<FormBuilderState> formKey;
 
   @override
   String toString() {
-    return 'SignInPageState(key: $key)';
+    return 'SignInPageState(formKey: $formKey)';
   }
 
   @override
@@ -107,11 +107,11 @@ class _$_SignInPageState implements _SignInPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SignInPageState &&
-            (identical(other.key, key) || other.key == key));
+            (identical(other.formKey, formKey) || other.formKey == formKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, key);
+  int get hashCode => Object.hash(runtimeType, formKey);
 
   @JsonKey(ignore: true)
   @override
@@ -120,12 +120,14 @@ class _$_SignInPageState implements _SignInPageState {
       __$$_SignInPageStateCopyWithImpl<_$_SignInPageState>(this, _$identity);
 }
 
-abstract class _SignInPageState implements SignInPageState {
+abstract class _SignInPageState extends SignInPageState {
   const factory _SignInPageState(
-      {required final GlobalKey<FormBuilderState> key}) = _$_SignInPageState;
+          {required final GlobalKey<FormBuilderState> formKey}) =
+      _$_SignInPageState;
+  const _SignInPageState._() : super._();
 
   @override
-  GlobalKey<FormBuilderState> get key;
+  GlobalKey<FormBuilderState> get formKey;
   @override
   @JsonKey(ignore: true)
   _$$_SignInPageStateCopyWith<_$_SignInPageState> get copyWith =>
