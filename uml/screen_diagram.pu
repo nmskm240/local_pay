@@ -1,0 +1,53 @@
+@startuml boot flow
+
+hide empty description
+skinparam state {
+  BackgroundColor<<MODAL>> orange
+  BackgroundColor<<GLOBAL>> #cccccc
+}
+
+state "スプラッシュ" as splash
+state "ログイン" as login
+state "サインアップ" as signup
+state "パスワードリマインド" as reminder<<MODAL>>
+state "メインメニュー" as main
+state "メール送信" as sendmail
+state "利用規約" as terms<<MODAL>>
+
+[*] --> splash
+splash --> login: 未ログイン
+splash --> main: ログイン済
+login --> main: ログイン
+login --> signup: 新規登録
+login --> reminder: パスワード再設定
+signup --> sendmail: 登録
+signup --> terms: 規約に同意する
+sendmail --> login
+
+@enduml
+
+@startuml main 
+
+hide empty description
+skinparam state {
+  BackgroundColor<<MODAL>> orange
+  BackgroundColor<<GLOBAL>> #cccccc
+}
+
+state "メインメニュー" as main
+state "ホーム" as home
+state "通知" as notification
+state "支払い" as payment
+state "ウォレット" as wallet
+state "アカウント" as account
+state "履歴" as history
+
+[*] --> main
+main --> home
+main --> notification
+main --> payment
+main --> wallet
+main --> account
+wallet --> history
+
+@enduml

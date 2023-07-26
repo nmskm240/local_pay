@@ -4,9 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
 import 'package:local_pay/application/service/authentication_service.dart';
-import 'package:local_pay/presentation/bottom_navigation_page.dart';
+import 'package:local_pay/presentation/pages/account/account_page.dart';
 import 'package:local_pay/presentation/pages/home/home_page.dart';
+import 'package:local_pay/presentation/pages/notification/notification_page.dart';
+import 'package:local_pay/presentation/pages/payment/payment_page.dart';
 import 'package:local_pay/presentation/pages/sign_in/sign_in_page.dart';
+import 'package:local_pay/presentation/main_manu_page.dart';
+import 'package:local_pay/presentation/pages/wallet/wallet_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -28,8 +32,26 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           initial: !_auth.isSignedIn,
         ),
         AutoRoute(
-          page: HomeRoute.page,
+          page: MainMenuRoute.page,
           initial: _auth.isSignedIn,
+          children: [
+            AutoRoute(
+              page: HomeRoute.page,
+              initial: true,
+            ),
+            AutoRoute(
+              page: NotificationRoute.page,
+            ),
+            AutoRoute(
+              page: PaymentRoute.page,
+            ),
+            AutoRoute(
+              page: WalletRoute.page,
+            ),
+            AutoRoute(
+              page: AccountRoute.page,
+            ),
+          ],
         ),
       ];
 
