@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# プロジェクトのルートディレクトリを取得
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+# フォーマット対象のDartファイルを取得
+FILES=$(git diff --cached --name-only --diff-filter=ACMRTUXB -- "$PROJECT_ROOT" | grep -E "\.dart$")
+
+# フォーマット対象のDartファイルが存在するかチェック
+if [ -z "$FILES" ]; then
+  exit 0
+fi
+
+# Dartコードフォーマッターを実行
+echo "Formatting Dart files: $FILES"
+flutter pub run import_sorter:main
+dart format $FILES
+
+git add $FILES
+
+# # フォーマット後の変更を表示
+# git diff --cached --exit-code --quiet || {
+#   echo "Dart files were formatted. Please review and commit again.";
+#   exit 1;
+# }
