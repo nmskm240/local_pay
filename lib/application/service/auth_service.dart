@@ -29,11 +29,20 @@ class Authentication {
     _isSignedIn = user != null;
   }
 
-  Future<void> signIn(AuthCredential credential) async {
-    await _authentication.signInWithCredential(credential);
+  Future<void> signIn(AuthCredential authCredential) async {
+    final credential =
+        await _authentication.signInWithCredential(authCredential);
+    final uid = credential.user!.uid;
+    if (await _userRepository.getById(uid) == null) {
+      final user = domain.User(
+        id: credential.user!.uid,
+        name: credential.user?.displayName ?? "",
+      );
+      await _userRepository.save(user);
+    }
   }
 
-  Future<void> signUp(String userName) async {
+  Future<void> signUp({String userName = ""}) async {
     final credential = await _authentication.signInAnonymously();
     final user = domain.User(id: credential.user!.uid, name: userName);
     await _userRepository.save(user);

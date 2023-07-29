@@ -11,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 // Project imports:
 import 'package:local_pay/application/enum/firebase_auth_exception_reason.dart';
 import 'package:local_pay/application/service/auth_service.dart';
+import 'package:local_pay/presentation/app_router.dart';
 import 'package:local_pay/presentation/pages/sign_in/sign_in_page_state.dart';
 
 part 'sign_in_page_notifier.g.dart';
@@ -42,6 +43,7 @@ class SignInPageNotifier extends _$SignInPageNotifier {
         password: password,
       );
       await ref.read(authentication).signIn(credential);
+      await ref.read(router).replace(const MainMenuRoute());
     } on FirebaseAuthException catch (e) {
       final reason = FirebaseAuthExceptionReason.values.byName(e.code);
       switch (reason) {
@@ -73,6 +75,7 @@ class SignInPageNotifier extends _$SignInPageNotifier {
         idToken: auth.idToken,
       );
       await ref.read(authentication).signIn(credential);
+      await ref.read(router).replace(const MainMenuRoute());
     } on FirebaseAuthException catch (e) {
       final reason = FirebaseAuthExceptionReason.values.byName(e.code);
       switch (reason) {
@@ -95,7 +98,8 @@ class SignInPageNotifier extends _$SignInPageNotifier {
 
   Future<void> onPressedAnonymousSignUpButton() async {
     try {
-      await ref.read(authentication).signUp("");
+      await ref.read(authentication).signUp();
+      await ref.read(router).replace(const MainMenuRoute());
     } on FirebaseAuthException catch (e) {
       final reason = FirebaseAuthExceptionReason.values.byName(e.code);
       switch (reason) {

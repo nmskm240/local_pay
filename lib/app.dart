@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,16 +14,26 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    FlutterNativeSplash.remove();
     final router = ref.watch(app_router.router);
-    return MaterialApp.router(
-      title: 'Local pay',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white70),
-        useMaterial3: true,
-      ),
-      routerConfig: router.config(),
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        debugPrint(snapshot.toString());
+        if (snapshot.connectionState == ConnectionState.active) {
+          FlutterNativeSplash.remove();
+          return MaterialApp.router(
+            title: 'Local pay',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.white70),
+              useMaterial3: true,
+            ),
+            routerConfig: router.config(),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
-
