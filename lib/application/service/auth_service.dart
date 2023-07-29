@@ -22,17 +22,24 @@ class Authentication {
   Authentication(
       this._authentication, this._userRepository, this._walletrepository) {
     _authentication.authStateChanges().listen(_onAuthStateChanges);
+    _authentication.userChanges().listen(_onUserChanges);
   }
 
   final FirebaseAuth _authentication;
   final IUserRepository _userRepository;
   final IWalletRepository _walletrepository;
   bool _isSignedIn = false;
+  User? _currentUser;
 
   bool get isSignedIn => _isSignedIn;
+  User? get currentUser => _currentUser;
 
   void _onAuthStateChanges(User? user) {
     _isSignedIn = user != null;
+  }
+
+  void _onUserChanges(User? user) {
+    _currentUser = user;
   }
 
   Future<void> signIn(AuthCredential authCredential) async {
