@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_in_page_notifier.dart';
+part of 'wallet_page_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signInPageNotifierHash() =>
-    r'022e41038b4593a58f1a303ce3500aa208e0c4e4';
+String _$walletPageNotifierHash() =>
+    r'3c085cb5dd95b343d4fbdd6b665393780ebe7093';
 
-/// See also [SignInPageNotifier].
-@ProviderFor(SignInPageNotifier)
-final signInPageNotifierProvider =
-    AutoDisposeNotifierProvider<SignInPageNotifier, SignInPageState>.internal(
-  SignInPageNotifier.new,
-  name: r'signInPageNotifierProvider',
+/// See also [WalletPageNotifier].
+@ProviderFor(WalletPageNotifier)
+final walletPageNotifierProvider = AutoDisposeAsyncNotifierProvider<
+    WalletPageNotifier, WalletPageState>.internal(
+  WalletPageNotifier.new,
+  name: r'walletPageNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$signInPageNotifierHash,
+      : _$walletPageNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SignInPageNotifier = AutoDisposeNotifier<SignInPageState>;
+typedef _$WalletPageNotifier = AutoDisposeAsyncNotifier<WalletPageState>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

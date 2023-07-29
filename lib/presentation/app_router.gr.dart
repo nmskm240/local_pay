@@ -15,22 +15,22 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    HomeRoute.name: (routeData) {
+    MainMenuRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const HomePage(),
-      );
-    },
-    SignInRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const SignInPage(),
+        child: const MainMenuPage(),
       );
     },
     AccountRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const AccountPage(),
+      );
+    },
+    HomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HomePage(),
       );
     },
     NotificationRoute.name: (routeData) {
@@ -45,45 +45,31 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const PaymentPage(),
       );
     },
+    SignInRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SignInPage(),
+      );
+    },
     WalletRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const WalletPage(),
       );
     },
-    MainMenuRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const MainMenuPage(),
-      );
-    },
   };
 }
 
 /// generated route for
-/// [HomePage]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
+/// [MainMenuPage]
+class MainMenuRoute extends PageRouteInfo<void> {
+  const MainMenuRoute({List<PageRouteInfo>? children})
       : super(
-          HomeRoute.name,
+          MainMenuRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'HomeRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [SignInPage]
-class SignInRoute extends PageRouteInfo<void> {
-  const SignInRoute({List<PageRouteInfo>? children})
-      : super(
-          SignInRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SignInRoute';
+  static const String name = 'MainMenuRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -98,6 +84,20 @@ class AccountRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [HomePage]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -131,6 +131,20 @@ class PaymentRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SignInPage]
+class SignInRoute extends PageRouteInfo<void> {
+  const SignInRoute({List<PageRouteInfo>? children})
+      : super(
+          SignInRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SignInRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [WalletPage]
 class WalletRoute extends PageRouteInfo<void> {
   const WalletRoute({List<PageRouteInfo>? children})
@@ -140,20 +154,6 @@ class WalletRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'WalletRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [MainMenuPage]
-class MainMenuRoute extends PageRouteInfo<void> {
-  const MainMenuRoute({List<PageRouteInfo>? children})
-      : super(
-          MainMenuRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MainMenuRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
