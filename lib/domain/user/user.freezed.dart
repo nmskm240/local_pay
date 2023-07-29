@@ -20,6 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   @CreatedAt()
@@ -39,7 +40,8 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {String name,
+      {String id,
+      String name,
       @JsonKey(name: "created_at") @CreatedAt() DateTime? createdAt,
       @JsonKey(name: "updated_at") @UpdatedAt() DateTime? updatedAt});
 }
@@ -57,11 +59,16 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -85,7 +92,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name,
+      {String id,
+      String name,
       @JsonKey(name: "created_at") @CreatedAt() DateTime? createdAt,
       @JsonKey(name: "updated_at") @UpdatedAt() DateTime? updatedAt});
 }
@@ -99,11 +107,16 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$_User(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -124,13 +137,16 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 @JsonSerializable()
 class _$_User extends _User {
   const _$_User(
-      {required this.name,
+      {required this.id,
+      required this.name,
       @JsonKey(name: "created_at") @CreatedAt() this.createdAt,
       @JsonKey(name: "updated_at") @UpdatedAt() this.updatedAt})
       : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
+  @override
+  final String id;
   @override
   final String name;
   @override
@@ -144,7 +160,7 @@ class _$_User extends _User {
 
   @override
   String toString() {
-    return 'User(name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(id: $id, name: $name, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -152,6 +168,7 @@ class _$_User extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_User &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -161,7 +178,7 @@ class _$_User extends _User {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, name, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -179,7 +196,8 @@ class _$_User extends _User {
 
 abstract class _User extends User {
   const factory _User(
-      {required final String name,
+      {required final String id,
+      required final String name,
       @JsonKey(name: "created_at") @CreatedAt() final DateTime? createdAt,
       @JsonKey(name: "updated_at")
       @UpdatedAt()
@@ -188,6 +206,8 @@ abstract class _User extends User {
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override

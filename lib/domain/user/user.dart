@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
 // Package imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Project imports:
@@ -15,6 +14,7 @@ part 'user.g.dart';
 class User with _$User {
   const User._();
   const factory User({
+    required String id,
     required String name,
     @JsonKey(name: "created_at") @CreatedAt() DateTime? createdAt,
     @JsonKey(name: "updated_at") @UpdatedAt() DateTime? updatedAt,

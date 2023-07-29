@@ -3,14 +3,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Project imports:
-import 'package:local_pay/application/service/authentication_service.dart';
+import 'package:local_pay/presentation/main_manu_page.dart';
 import 'package:local_pay/presentation/pages/account/account_page.dart';
 import 'package:local_pay/presentation/pages/home/home_page.dart';
 import 'package:local_pay/presentation/pages/notification/notification_page.dart';
 import 'package:local_pay/presentation/pages/payment/payment_page.dart';
 import 'package:local_pay/presentation/pages/sign_in/sign_in_page.dart';
-import 'package:local_pay/presentation/main_manu_page.dart';
 import 'package:local_pay/presentation/pages/wallet/wallet_page.dart';
+import '../application/service/auth_service.dart';
 
 part 'app_router.gr.dart';
 
@@ -23,7 +23,7 @@ final router = Provider<AppRouter>((ref) {
 class AppRouter extends _$AppRouter implements AutoRouteGuard {
   AppRouter(this._auth) : super();
 
-  final AuthenticationService _auth;
+  final Authentication _auth;
 
   @override
   List<AutoRoute> get routes => [

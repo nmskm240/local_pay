@@ -2,17 +2,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UpdatedAt implements JsonConverter<DateTime?, Timestamp?> {
+class UpdatedAt implements JsonConverter<DateTime?, dynamic> {
   const UpdatedAt();
 
   @override
-  DateTime? fromJson(Timestamp? timestamp) {
+  DateTime? fromJson(dynamic arg) {
+    final timestamp = arg as Timestamp?;
     return timestamp?.toDate();
   }
 
   @override
-  Timestamp? toJson(DateTime? _) {
-    final date = DateTime.now().toUtc();
-    return Timestamp.fromDate(date);
+  FieldValue toJson(DateTime? _) {
+    return FieldValue.serverTimestamp();
   }
 }
