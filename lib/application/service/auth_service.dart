@@ -4,23 +4,29 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Project imports:
 import 'package:local_pay/domain/user/i_user_repository.dart';
-import 'package:local_pay/domain/user/user.dart' as domain;
+import 'package:local_pay/domain/user/user.dart' as domain_user;
+import 'package:local_pay/domain/wallet/i_wallet_repository.dart';
+import 'package:local_pay/domain/wallet/wallet.dart';
 import 'package:local_pay/infrastructure/auth/auth_repository.dart';
 import 'package:local_pay/infrastructure/firebase/user_repository.dart';
+import 'package:local_pay/infrastructure/firebase/wallet_repository.dart';
 
 final authentication = Provider<Authentication>((ref) {
   final auth = ref.watch(authRepository);
-  final repository = ref.watch(userRepository);
-  return Authentication(auth, repository);
+  final users = ref.watch(userRepository);
+  final wallets = ref.watch(walletRepository);
+  return Authentication(auth, users, wallets);
 });
 
 class Authentication {
-  Authentication(this._authentication, this._userRepository) {
+  Authentication(
+      this._authentication, this._userRepository, this._walletrepository) {
     _authentication.authStateChanges().listen(_onAuthStateChanges);
   }
 
   final FirebaseAuth _authentication;
   final IUserRepository _userRepository;
+  final IWalletRepository _walletrepository;
   bool _isSignedIn = false;
 
   bool get isSignedIn => _isSignedIn;
@@ -34,18 +40,22 @@ class Authentication {
         await _authentication.signInWithCredential(authCredential);
     final uid = credential.user!.uid;
     if (await _userRepository.getById(uid) == null) {
-      final user = domain.User(
+      final user = domain_user.User(
         id: credential.user!.uid,
         name: credential.user?.displayName ?? "",
       );
+      final wallet = Wallet(owner: user.id);
       await _userRepository.save(user);
+      await _walletrepository.save(wallet);
     }
   }
 
   Future<void> signUp({String userName = ""}) async {
     final credential = await _authentication.signInAnonymously();
-    final user = domain.User(id: credential.user!.uid, name: userName);
+    final user = domain_user.User(id: credential.user!.uid, name: userName);
+    final wallet = Wallet(owner: user.id);
     await _userRepository.save(user);
+    await _walletrepository.save(wallet);
   }
 
   Future<void> signOut() async {
