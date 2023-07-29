@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_route/auto_route.dart';
+
+// Project imports:
 import 'package:local_pay/presentation/app_router.dart';
 
 @RoutePage()
